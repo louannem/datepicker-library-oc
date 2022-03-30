@@ -20,7 +20,7 @@ import { ReactDatepicker, DatepickerInput, DatePickerWrapper, DatePickerHeader, 
  * @param {number} startYear personnalized starting year. By default, the current year is used.
  * @returns Datepicker React component
  */
-export const DatePicker = ({inputValue, inputIcon, closeButton, hightlightToday, lang, startMonth, startYear}) => {
+export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightlightToday, lang, startMonth, startYear}) => {
     //Constants
     const date = new Date()
     let days, months, monthsObj
@@ -271,6 +271,7 @@ export const DatePicker = ({inputValue, inputIcon, closeButton, hightlightToday,
         const date = new Date(dayObj.year, dayObj.month, dayObj.day)
         setSelectedDay(new Intl.DateTimeFormat().format(date))
         setTimestamp(dayObj.day)
+        {onChange()}
 
         return (new Intl.DateTimeFormat().format(date))
     }
@@ -287,7 +288,6 @@ export const DatePicker = ({inputValue, inputIcon, closeButton, hightlightToday,
         if(selectedMonth === month && timestamp === index) { return true}
         return false
     }
-
 
     /**
      * Highlight current date if found on the datepicker open month
@@ -407,6 +407,7 @@ export const DatePicker = ({inputValue, inputIcon, closeButton, hightlightToday,
 
 
 DatePicker.defaultProps = {
+    onChange: () => {},
     inputValue:null,
     inputIcon: false,
     closeButton: true,
