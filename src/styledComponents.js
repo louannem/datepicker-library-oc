@@ -51,11 +51,17 @@ export const DatePickerHeader = styled.div`
 export const DatePickerHeadButton = styled.div`
     display: flex;
     float: left;
-    width: 25px;
+    width: 30px;
     height: 100%;
     box-sizing: border-box;
     position: relative;
     align-items: center;
+    justify-content: center;
+
+    &>img {
+        height: 15px;
+        cursor: pointer;
+    }
 `
 
 export const DatePickerHeadButtonInner = styled.div`

@@ -3,6 +3,10 @@ import React from 'react'
 import datepicker from './datepicker.css'
 import { useEffect, useState, useRef, createRef } from 'react'
 import CalendarIcon from 'assets/calendar-icon.svg'
+import NextMonth from 'assets/right-chevron.svg'
+import NextYear from 'assets/right-double-chevron.svg'
+import PreviousMonth from 'assets/left-chevron.svg'
+import PreviousYear from 'assets/left-double-chevron.svg'
 import { ReactDatepicker, DatepickerInput, DatePickerWrapper, DatePickerHeader, DatePickerHeadButton, DatepickerHeadDates, DatepickerHeadMonth, DatepickerHeadYear, DatepickerBody, DatepickerWeekdaysMarkup, DatepickerCalendar, DatepickerMonthsYearsArray, CloseButtonWrapper, CalendarDay } from './styledComponents'
 
 
@@ -341,15 +345,11 @@ export const DatePicker = ({inputValue, inputIcon, closeButton, hightlightToday,
             {showDatePicker ? (
                 <DatePickerWrapper>
                     <DatePickerHeader>
-                        <DatePickerHeadButton>
-                            <div className={datepicker.datepickerHeadButtonInner} onClick={() => changeYear(-1)}>
-                                <span className='datepicker.datepickerHeadDoubleLeftArrow'></span>
-                            </div>
+                        <DatePickerHeadButton onClick={() => changeYear(-1)}>
+                            <img src={PreviousYear} alt="Previous year button" />
                         </DatePickerHeadButton>
-                        <DatePickerHeadButton>
-                            <div className='datepicker-head-button-inner' onClick={() => changeMonth(-1)}>
-                                <span className='datepicker-head-left-arrow'></span>
-                            </div>
+                        <DatePickerHeadButton onClick={() => changeMonth(-1)}>
+                            <img src={PreviousMonth} alt="Previous month button" />
                         </DatePickerHeadButton>
 
                         <DatepickerHeadDates>
@@ -374,16 +374,12 @@ export const DatePicker = ({inputValue, inputIcon, closeButton, hightlightToday,
                             </DatepickerHeadYear>
                         </DatepickerHeadDates>
 
-                        <div className={datepicker.datepickerHeadButton}>
-                            <div className={datepicker.datepickerHeadButtonInner} onClick={() => changeMonth(1)}>
-                                <span className='datepicker-head-right-arrow'></span>
-                            </div>
-                        </div>
-                        <div className={datepicker.datepickerHeadButton}>
-                            <div className='datepicker-head-button-inner' onClick={() => changeYear(1)}>
-                                <span className='datepicker-head-double-right-arrow'></span>
-                            </div>
-                        </div>                   
+                        <DatePickerHeadButton onClick={() => changeMonth(1)}>
+                            <img src={NextMonth} alt="Next month button" />
+                        </DatePickerHeadButton>
+                        <DatePickerHeadButton onClick={() => changeYear(1)}>
+                            <img src={NextYear} alt="Next year button" />
+                        </DatePickerHeadButton>                   
                     </DatePickerHeader>
 
                     <DatepickerBody>
