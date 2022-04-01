@@ -1,14 +1,11 @@
 import React from 'react'
-//import datepicker from './datepicker.module.css'
-import datepicker from './datepicker.css'
+import datepicker from './datepicker.module.css'
 import { useEffect, useState, useRef, createRef } from 'react'
 import CalendarIcon from 'assets/calendar-icon.svg'
 import NextMonth from 'assets/right-chevron.svg'
 import NextYear from 'assets/right-double-chevron.svg'
 import PreviousMonth from 'assets/left-chevron.svg'
 import PreviousYear from 'assets/left-double-chevron.svg'
-import { ReactDatepicker, DatepickerInput, DatePickerWrapper, DatePickerHeader, DatePickerHeadButton, DatepickerHeadDates, DatepickerHeadMonth, DatepickerHeadYear, DatepickerBody, DatepickerWeekdaysMarkup, DatepickerCalendar, DatepickerMonthsYearsArray, CloseButtonWrapper, CalendarDay } from './styledComponents'
-
 
 /**
  * Datepicker plugin developped for React, from Jquery plugin
@@ -320,89 +317,86 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
     //Calendar component
     const calendar = (
         monthDaysDetails && monthDaysDetails.map((day, index) => (
-            <CalendarDay data-month={day.month} 
-            style={{
-              backgroundColor: isTodayDay(day.day, day.month) ? "lightgrey" : isSelectedDay(day.day, day.month) ? '#f1b5a3' : ' ',
-              opacity: day.month !== month ? 0.5 : '',
-              cursor: day.month !== month ? 'default' : 'pointer'
-            } }
-
+            <div data-month={day.month} 
+            className={(day.month !== month ? datepicker.datepickerOtherMonth : '') 
+            + ' ' + datepicker.calendarDay + (isTodayDay(day.day, day.month) ? ' ' + datepicker.highlightToday : '') 
+            + (isSelectedDay(day.day, day.month) ? ' ' + datepicker.highlighted : '') } 
             key={index}  
             onClick={() => { 
                 onDateClick(day)
                 getDate()
-             }}>{day.day}</CalendarDay>
+             }}>{day.day}</div>
         ))
     )
  
     return(
-        <ReactDatepicker ref={el}>   
-            <DatepickerInput   onClick={()=> setShowDatePicker(true)} >
+        <div ref={el} className={datepicker.reactDatepicker}>   
+            <div   onClick={()=> setShowDatePicker(true)} className={datepicker.datepickerInput}>
                 <label style={{display: 'none'}}>Date</label>
                 {inputIcon && <img src={CalendarIcon} alt="Calendar icon"  />}
                 <input type='text'  ref={inputRef} />
-            </DatepickerInput>
+            </div>
 
             {showDatePicker ? (
-                <DatePickerWrapper>
-                    <DatePickerHeader>
-                        <DatePickerHeadButton onClick={() => changeYear(-1)}>
+                <div className={datepicker.datepickerWrapper}>
+                    <div className={datepicker.datepickerHead}>
+                        <div className={datepicker.datepickerHeadButton} onClick={() => changeYear(-1)}>
                             <img src={PreviousYear} alt="Previous year button" />
-                        </DatePickerHeadButton>
-                        <DatePickerHeadButton onClick={() => changeMonth(-1)}>
+                        </div>
+                        <div className={datepicker.datepickerHeadButton} onClick={() => changeMonth(-1)}>
                             <img src={PreviousMonth} alt="Previous month button" />
-                        </DatePickerHeadButton>
+                        </div>
 
-                        <DatepickerHeadDates>
-                            <DatepickerHeadMonth>
+                        <div className={datepicker.datepickerHeadDates}>
+                            <div className={datepicker.datepickerHeadMonth}>
                                 <span onClick={() => setShowMonthsArray(true)}>{!showMonthsArray && months[month]}</span>
-                                <DatepickerMonthsYearsArray>
+                                <div className={datepicker.datepickerArray}>
                                     {showMonthsArray && monthsObj.map((monthObj, index) => (
                                         <li key={index} onClick={() => {setMonth(index); setShowMonthsArray(false)}}>{monthObj.month}</li>
                                     ))}
-                                </DatepickerMonthsYearsArray> 
-                            </DatepickerHeadMonth>
+                                </div> 
+                            </div>
 
                             <span> - </span>
 
-                            <DatepickerHeadYear>
+                            <div className={datepicker.datepickerHeadYear}>
                                 <span onClick={() => setShowYearsArray(true) }>{!showYearsArray && year}</span>
-                                <DatepickerMonthsYearsArray>
+                                <div className={datepicker.datepickerArray}>
                                     {showYearsArray && yearsList.map((year, index) => (
                                         <li key={index} onClick={() => {setYear(year); setShowYearsArray(false)}}>{year}</li>
                                     ))}
-                                </DatepickerMonthsYearsArray>
-                            </DatepickerHeadYear>
-                        </DatepickerHeadDates>
+                                </div>
+                            </div>
+                        </div>
 
-                        <DatePickerHeadButton onClick={() => changeMonth(1)}>
+                        <div className={datepicker.datepickerHeadButton}onClick={() => changeMonth(1)}>
                             <img src={NextMonth} alt="Next month button" />
-                        </DatePickerHeadButton>
-                        <DatePickerHeadButton onClick={() => changeYear(1)}>
+                        </div>
+                        <div className={datepicker.datepickerHeadButton}  onClick={() => changeYear(1)}>
                             <img src={NextYear} alt="Next year button" />
-                        </DatePickerHeadButton>                   
-                    </DatePickerHeader>
+                        </div>                   
+                    </div>
 
-                    <DatepickerBody>
-                        <DatepickerWeekdaysMarkup>
+                    <div className={datepicker.datepickerBody}>
+                        <div className={datepicker.datepickerWeekdaysMarkup}>
                             {daysMarkup}
-                        </DatepickerWeekdaysMarkup>
-                        <DatepickerCalendar>
+                        </div>
+                        <div className={datepicker.datepickerCalendar}>
                             {calendar}
-                        </DatepickerCalendar>
-                    </DatepickerBody>
+                        </div>
+                    </div>
                     {closeButton && 
-                        <CloseButtonWrapper>
+                        <div className={datepicker.datepickerCloseButton}>
                             <button onClick={() => {
                                 setShowDatePicker(false)
                                 setShowMonthsArray(false)
                                 setShowYearsArray(false)
                             }}>{lang === "eng" ? "Close" : "Fermer"}</button>
-                        </CloseButtonWrapper>
+                        </div>
                     }
-                </DatePickerWrapper>
+                </div>
             ) : ''}
-        </ReactDatepicker>
+        </div>
     )
 }
 

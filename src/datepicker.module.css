@@ -8,11 +8,19 @@
   align-items: center;
   position: relative;
 }
+
 .datepickerInput input {
   width: 100%;
   padding: 2px;
   position: absolute;
   left: 0;
+}
+
+.datepickerInput > img {
+  position: relative;
+  left: 90%;
+  height: 15px;
+  z-index: 3;
 }
 
 .datepickerWrapper {
@@ -39,11 +47,17 @@
 .datepickerHeadButton {
   display: flex;
   float: left;
-  width: 25px;
+  width: 30px;
   height: 100%;
   box-sizing: border-box;
   position: relative;
   align-items: center;
+  justify-content: center;
+}
+
+.datepickerHeadButton >img {
+  height: 15px;
+  cursor: pointer;
 }
 
 .datepickerHeadButtonInner {
@@ -64,56 +78,6 @@
   cursor: pointer;
 }
 
-.datepicker-head-left-arrow,
-.datepicker-head-double-left-arrow,
-.datepicker-head-right-arrow,
-.datepicker-head-double-right-arrow,
-.datepicker-head-double-left-arrow::after,
-.datepicker-head-double-right-arrow::after {
-  display: block;
-  float: left;
-  width: 5px;
-  height: 5px;
-  border-left: 2px solid #888;
-  border-bottom: 2px solid #888;
-  position: absolute;
-  cursor: pointer;
-}
-
-.datepicker-head-left-arrow,
-.datepicker-head-double-left-arrow,
-.datepicker-head-double-right-arrow,
-.datepicker-head-right-arrow {
-  transform: rotate(45deg);
-  left: 50%;
-  top: 50%;
-  margin-left: -2px;
-  margin-top: -4px;
-}
-
-.datepicker-head-right-arrow,
-.datepicker-head-double-right-arrow {
-  transform: rotate(225deg);
-  margin-left: -4px;
-}
-
-.datepicker-head-double-left-arrow::after,
-.datepicker-head-double-right-arrow::after {
-  content: "";
-}
-
-.datepicker-head-double-left-arrow {
-  margin-left: -5px;
-}
-
-.datepicker-head-double-right-arrow {
-  margin-left: -2px;
-}
-.datepicker-head-double-left-arrow::after,
-.datepicker-head-double-right-arrow::after {
-  left: 3px;
-  top: -5px;
-}
 
 .datepickerHeadDates {
   display: flex;
@@ -121,6 +85,7 @@
   width: 100%;
   height: 100%;
 }
+
 
 .datepickerHeadMonth,
 .datepickerHeadYear {
@@ -135,6 +100,27 @@
   font-weight: 200px;
   text-align: center;
   margin: 0px 1px;
+  cursor: pointer;
+}
+
+.datepickerArray {
+  position: absolute;
+    top: 5px;
+    min-height: 0px;
+    max-height: 100px;
+    width: 80px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #ffff;
+    z-index: 3;
+    padding: 0;
+}
+
+.datepickerArray li {
+  text-align: left;
+  list-style-type: none;
+  padding: 2px;
+  box-sizing: border-box;
   cursor: pointer;
 }
 
@@ -245,14 +231,15 @@
   cursor: default;
 }
 
-.datepickerSaveButton {
+
+.datepickerCloseButton {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.datepickerSaveButton button {
+.datepickerCloseButton button {
   border: none;
   padding: 5px 10px;
   cursor: pointer;
