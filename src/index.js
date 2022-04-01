@@ -338,6 +338,7 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
     return(
         <ReactDatepicker ref={el}>   
             <DatepickerInput   onClick={()=> setShowDatePicker(true)} >
+                <label style={{display: 'none'}}>Date</label>
                 {inputIcon && <img src={CalendarIcon} alt="Calendar icon"  />}
                 <input type='text'  ref={inputRef} />
             </DatepickerInput>

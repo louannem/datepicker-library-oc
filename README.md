@@ -13,17 +13,32 @@ npm install --save datepicker-library-oc
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import MyComponent from 'datepicker-library-oc'
-import 'datepicker-library-oc/dist/index.css'
+import DatePicker from "datepicker-library-oc";
+import "datepicker-library-oc/dist/index.css";
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+function Example() {
+  return <DatePicker />;
 }
 ```
+
+## Props
+
+| Prop           | Type     | Default value                                                                          |
+| -------------- | -------- | -------------------------------------------------------------------------------------- |
+| inputValue     | Function | //                                                                                     |
+| inputIcon      | Boolean  | false                                                                                  |
+| closeButton    | Boolean  | true                                                                                   |
+| highlightToday | Boolean  | true                                                                                   |
+| lang           | String   | "en" (also available for now : "fr")                                                   |
+| startYear      | Number   | null (or current year)                                                                 |
+| startMonth     | Number   | null (or current month index). The month index goes from 0 (january) to 11 (december). |
+
+## Examples
+
+All examples can be found on https://
+The basic use of the datepicker can be as such :
 
 ## License
 
