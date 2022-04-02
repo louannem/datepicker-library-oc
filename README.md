@@ -12,6 +12,8 @@ npm install --save datepicker-library-oc
 
 ## Usage
 
+All available props are shown in the next section. To get a selected date's value, you need a function that will return it, or put it in your state. You can then call that function in the onChange prop.
+
 ```jsx
 import React, { Component } from "react";
 
@@ -19,7 +21,12 @@ import DatePicker from "datepicker-library-oc";
 import "datepicker-library-oc/dist/index.css";
 
 function Example() {
-  return <DatePicker />;
+  const [date, setDate] = useState("");
+  const handleChange = (selectedDate) => {
+    setDate(selectedDate);
+  };
+
+  return <DatePicker onChange={handleChange} />;
 }
 ```
 
@@ -27,7 +34,7 @@ function Example() {
 
 | Prop           | Type     | Default value                                                                          |
 | -------------- | -------- | -------------------------------------------------------------------------------------- |
-| inputValue     | Function | //                                                                                     |
+| onChange       | Function | Return nuln                                                                            |
 | inputIcon      | Boolean  | false                                                                                  |
 | closeButton    | Boolean  | true                                                                                   |
 | highlightToday | Boolean  | true                                                                                   |

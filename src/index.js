@@ -1,6 +1,6 @@
 import React from 'react'
 import datepicker from './datepicker.module.css'
-import { useEffect, useState, useRef, createRef } from 'react'
+import { useEffect, useState, useRef, createRef, useImperativeHandle } from 'react'
 import CalendarIcon from 'assets/calendar-icon.svg'
 import NextMonth from 'assets/right-chevron.svg'
 import NextYear from 'assets/right-double-chevron.svg'
@@ -17,7 +17,7 @@ import PreviousYear from 'assets/left-double-chevron.svg'
  * @param {number} startYear personnalized starting year. By default, the current year is used.
  * @returns Datepicker React component
  */
-export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightlightToday, lang, startMonth, startYear}) => {
+export const DatePicker = ({ onChange, inputIcon, closeButton, hightlightToday, hightlightColor, lang, startMonth, startYear}) => {
     //Constants
     const date = new Date()
     let days, months, monthsObj
@@ -268,13 +268,10 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
         const date = new Date(dayObj.year, dayObj.month, dayObj.day)
         setSelectedDay(new Intl.DateTimeFormat().format(date))
         setTimestamp(dayObj.day)
-        {onChange()}
+        onChange(new Intl.DateTimeFormat().format(date))
 
         return (new Intl.DateTimeFormat().format(date))
     }
-
-    //Sends the selected date to the parent component
-    const getDate = () => { inputValue(selectedDay) }
 
     const addDateInInput = (selectedDay) => { inputRef.current.value = selectedDay }
 
@@ -294,14 +291,12 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
     const isTodayDay = (day, month) => {
         if(date.getDate() === day && date.getMonth() === month && date.getFullYear() === year && hightlightToday) {  return true  }
         return false
-    }
-    
-    
+    }   
+
     useEffect(() => {       
         setYearsList(yearsArray())
         setDaysDetails(getCalendar())      
         addDateInInput(selectedDay)
-
       
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[month, year, selectedDay])
@@ -324,21 +319,21 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
             key={index}  
             onClick={() => { 
                 onDateClick(day)
-                getDate()
              }}>{day.day}</div>
         ))
     )
  
     return(
-        <div ref={el} className={datepicker.reactDatepicker}>   
-            <div   onClick={()=> setShowDatePicker(true)} className={datepicker.datepickerInput}>
-                <label style={{display: 'none'}}>Date</label>
+        <div ref={el} className={datepicker.reactDatepicker} id="react-datepicker-plugin">   
+            <div   onClick={()=> setShowDatePicker(true)} className={datepicker.datepickerInput} id="datepicker-input-wrapper">
+                <label  for="date-input">
                 {inputIcon && <img src={CalendarIcon} alt="Calendar icon"  />}
-                <input type='text'  ref={inputRef} />
+                <input type='text'  ref={inputRef} id="date-input" />
+                </label>
             </div>
 
             {showDatePicker ? (
-                <div className={datepicker.datepickerWrapper}>
+                <div className={datepicker.datepickerWrapper} id="datepicker-wrapper">
                     <div className={datepicker.datepickerHead}>
                         <div className={datepicker.datepickerHeadButton} onClick={() => changeYear(-1)}>
                             <img src={PreviousYear} alt="Previous year button" />
@@ -348,24 +343,24 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
                         </div>
 
                         <div className={datepicker.datepickerHeadDates}>
-                            <div className={datepicker.datepickerHeadMonth}>
+                            <div className={datepicker.datepickerHeadMonth} id="datepicker-month">
                                 <span onClick={() => setShowMonthsArray(true)}>{!showMonthsArray && months[month]}</span>
-                                <div className={datepicker.datepickerArray}>
+                                <ul className={datepicker.datepickerArray} id="datepicker-months-array">
                                     {showMonthsArray && monthsObj.map((monthObj, index) => (
                                         <li key={index} onClick={() => {setMonth(index); setShowMonthsArray(false)}}>{monthObj.month}</li>
                                     ))}
-                                </div> 
+                                </ul> 
                             </div>
 
                             <span> - </span>
 
-                            <div className={datepicker.datepickerHeadYear}>
+                            <div className={datepicker.datepickerHeadYear} id="datepicker-year">
                                 <span onClick={() => setShowYearsArray(true) }>{!showYearsArray && year}</span>
-                                <div className={datepicker.datepickerArray}>
+                                <ul className={datepicker.datepickerArray} id="datepicker-years-array">
                                     {showYearsArray && yearsList.map((year, index) => (
                                         <li key={index} onClick={() => {setYear(year); setShowYearsArray(false)}}>{year}</li>
                                     ))}
-                                </div>
+                                </ul>
                             </div>
                         </div>
 
@@ -377,16 +372,16 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
                         </div>                   
                     </div>
 
-                    <div className={datepicker.datepickerBody}>
-                        <div className={datepicker.datepickerWeekdaysMarkup}>
+                    <div className={datepicker.datepickerBody} id="datepicker-body">
+                        <div className={datepicker.datepickerWeekdaysMarkup} id="datepicker-weekdays-wrapper">
                             {daysMarkup}
                         </div>
-                        <div className={datepicker.datepickerCalendar}>
+                        <div className={datepicker.datepickerCalendar} id="datepicker-calendar">
                             {calendar}
                         </div>
                     </div>
                     {closeButton && 
-                        <div className={datepicker.datepickerCloseButton}>
+                        <div className={datepicker.datepickerCloseButton} id="datepicker-close-button">
                             <button onClick={() => {
                                 setShowDatePicker(false)
                                 setShowMonthsArray(false)
@@ -403,10 +398,10 @@ export const DatePicker = ({onChange, inputValue, inputIcon, closeButton, hightl
 
 DatePicker.defaultProps = {
     onChange: () => {},
-    inputValue:null,
     inputIcon: false,
     closeButton: true,
     hightlightToday: true,
+    hightlightColor: null,
     lang: "en",
     startYear: null,
     startMonth: null
