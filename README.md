@@ -44,8 +44,7 @@ function Example() {
 
 ## Examples
 
-All examples can be found on https://
-The basic use of the datepicker can be as such :
+All examples can be found on https://louannem.github.io/datepicker-library-oc/
 
 ## License
 
