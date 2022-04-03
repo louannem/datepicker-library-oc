@@ -32,15 +32,15 @@ function Example() {
 
 ## Props
 
-| Prop           | Type     | Default value                                                                          |
-| -------------- | -------- | -------------------------------------------------------------------------------------- |
-| onChange       | Function | Return nuln                                                                            |
-| inputIcon      | Boolean  | false                                                                                  |
-| closeButton    | Boolean  | true                                                                                   |
-| highlightToday | Boolean  | true                                                                                   |
-| lang           | String   | "en" (also available for now : "fr")                                                   |
-| startYear      | Number   | null (or current year)                                                                 |
-| startMonth     | Number   | null (or current month index). The month index goes from 0 (january) to 11 (december). |
+| Prop           | Type     | Default value                                                                           |
+| -------------- | -------- | --------------------------------------------------------------------------------------- |
+| onChange       | Function | Return null. Should be present in every datepicker component with a function as a value |
+| inputIcon      | Boolean  | false                                                                                   |
+| closeButton    | Boolean  | true                                                                                    |
+| highlightToday | Boolean  | true                                                                                    |
+| lang           | String   | "en" (also available for now : "fr")                                                    |
+| startYear      | Number   | null (or current year)                                                                  |
+| startMonth     | Number   | null (or current month index). The month index goes from 0 (january) to 11 (december).  |
 
 ## Examples
 

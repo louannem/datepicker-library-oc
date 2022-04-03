@@ -2,7 +2,7 @@
   width: 150px;
 }
 
-.datepickerInput {
+.datepickerInput, .datepickerLabel {
   width: 100%;
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@
   left: 0;
 }
 
-.datepickerInput > img {
+.datepickerInput > img, .datepickerLabel > img {
   position: relative;
   left: 90%;
   height: 15px;
@@ -26,7 +26,6 @@
 .datepickerWrapper {
   float: left;
   position: absolute;
-  left: 20px;
   width: 220px;
   height: auto;
   background: #ffff;
@@ -154,7 +153,7 @@
 .datepickerCalendar {
   display: flex;
   flex-wrap: wrap;
-  height: 150px;
+  height: auto;
   width: 100%;
 }
 
