@@ -17,7 +17,7 @@ import PreviousYear from 'assets/left-double-chevron.svg'
  * @param {number} startYear personnalized starting year. By default, the current year is used.
  * @returns Datepicker React component
  */
-export const DatePicker = ({ onChange, inputIcon, closeButton, hightlightToday, hightlightColor, lang, startMonth, startYear}) => {
+export const DatePicker = ({ onChange, labelID, inputIcon, closeButton, hightlightToday, hightlightColor, lang, startMonth, startYear}) => {
     //Constants
     const date = new Date()
     let days, months, monthsObj
@@ -326,9 +326,10 @@ export const DatePicker = ({ onChange, inputIcon, closeButton, hightlightToday, 
     return(
         <div ref={el} className={datepicker.reactDatepicker} id="react-datepicker-plugin">   
             <div   onClick={()=> setShowDatePicker(true)} className={datepicker.datepickerInput} id="datepicker-input-wrapper">
-                <label className={datepicker.datepickerLabel}  htmlFor="date-input">
+                <label className={datepicker.datepickerLabel}  htmlFor={labelID}>
                 {inputIcon && <img src={CalendarIcon} alt="Calendar icon"  />}
-                <input type='text'  ref={inputRef} id="date-input" />
+                <label htmlFor={labelID} style={{display: "none"}}></label>
+                <input type='text'  ref={inputRef} id={labelID} />
                 </label>
             </div>
 
